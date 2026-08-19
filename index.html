@@ -4,18 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Umii Araa — Midnight</title>
   <meta name="description"
-    content="Responsive content website with Adsterra Smartlink and responsive banner ad placements." />
+    content="Responsive single-page video website with JavaScript-rendered video cards, Lucide icons, Smartlink and Adsterra slots." />
+  <title>Umii Araa — Home</title>
 
-  <!-- =========================================================
-       TAILWIND CDN
-       ========================================================= -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- =========================================================
-       LUCIDE ICONS CDN
-       ========================================================= -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <script>
@@ -27,9 +23,7 @@
             muted: '#687386',
             line: '#E7EAF0',
             soft: '#F5F7FB',
-            primary: '#FF9A00',
-            primary2: '#FF9A00',
-            cyanx: '#06B6D4'
+            primary: '#FF9A00'
           },
           boxShadow: {
             card: '0 12px 35px rgba(26, 35, 52, .08)',
@@ -47,37 +41,22 @@
 
     body {
       background:
-        radial-gradient(circle at 8% 0%, rgba(79, 70, 229, .06), transparent 24%),
+        radial-gradient(circle at 8% 0%, rgba(255, 154, 0, .08), transparent 24%),
         radial-gradient(circle at 92% 8%, rgba(6, 182, 212, .05), transparent 20%),
         #F7F9FC;
       color: #172033;
     }
 
     .glass {
-      background: rgba(255, 255, 255, .88);
+      background: rgba(255, 255, 255, .90);
       border: 1px solid rgba(231, 234, 240, .95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
 
-    .nav-active {
-      color: #fff;
-      background: #FF9A00;
-      box-shadow: 0 6px 14px rgba(79, 70, 229, .16);
-    }
-
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .hide-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
     .ad-slot {
       background:
-        linear-gradient(135deg, rgba(79, 70, 229, .035), rgba(6, 182, 212, .03)),
+        linear-gradient(135deg, rgba(255, 154, 0, .045), rgba(6, 182, 212, .03)),
         repeating-linear-gradient(45deg,
           rgba(17, 24, 39, .022),
           rgba(17, 24, 39, .022) 10px,
@@ -85,7 +64,18 @@
           transparent 20px);
     }
 
-    /* Keep the compact mobile feel from the reference image. */
+    .video-card {
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .video-card:hover .video-thumb {
+      transform: scale(1.04);
+    }
+
     @media (max-width: 640px) {
       .page-shell {
         max-width: 430px;
@@ -95,584 +85,371 @@
 </head>
 
 <body class="min-h-screen">
-
   <div class="page-shell max-w-[1280px] mx-auto px-3 sm:px-6 lg:px-8">
 
-    <!-- =========================================================
-         NAVBAR
-         Mobile: tighter gap + smaller height to match reference.
-         Desktop: still compact, centered, and easy to scan.
-         ========================================================= -->
-    <header class="sticky top-0 z-50 py-4">
-      <div class="glass rounded-2xl px-3 py-2 shadow-soft">
-        <nav class="flex items-center justify-between gap-4">
-          <a href="#home" class="flex items-center gap-3 min-w-fit" data-route="home">
+    <main id="home">
+
+      <!-- HERO -->
+      <section class="grid grid-cols-1 lg:grid-cols-[1.12fr_.88fr] gap-5 lg:gap-6 mt-1">
+
+        <div class="glass rounded-3xl p-6 sm:p-8 lg:p-10 shadow-card min-h-[310px] flex flex-col justify-between">
+          <div>
             <div
-              class="h-10 w-10 rounded-xl bg-gradient-to-br from-violet to-cyanx flex items-center justify-center shadow-glow">
-              <i data-lucide="play" class="h-5 w-5"></i>
+              class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] text-muted">
+              <span class="h-2 w-2 rounded-full bg-primary"></span>
+              Private Channel
             </div>
-            <div class="hidden sm:block">
-              <div class="font-semibold tracking-wide">Umii Araa</div>
-              <div class="text-xs text-mist">Midnight</div>
-            </div>
-          </a>
 
-          <div class="flex items-center gap-0.5 sm:gap-1 overflow-x-auto hide-scrollbar">
-            <a href="#home" data-route="home"
-              class="nav-item px-3 sm:px-4 py-2 rounded-xl text-[13px] sm:text-sm text-muted transition">Home</a>
-            <a href="#video" data-route="video"
-              class="nav-item px-3 sm:px-4 py-2 rounded-xl text-[13px] sm:text-sm text-muted transition">Video</a>
-            <a href="#image" data-route="image"
-              class="nav-item px-3 sm:px-4 py-2 rounded-xl text-[13px] sm:text-sm text-muted transition">Image</a>
-            <a href="#about" data-route="about"
-              class="nav-item px-3 sm:px-4 py-2 rounded-xl text-[13px] sm:text-sm text-muted transition">About Me</a>
-          </div>
-
-          <a id="topSmartlink" href="#"
-            class="hidden md:flex items-center gap-2 rounded-xl px-4 py-2 bg-[#FF9A00] text-white text-sm font-semibold hover:bg-slate-200 transition">
-            <i data-lucide="external-link" class="h-4 w-4"></i>
-            Explore
-          </a>
-        </nav>
-      </div>
-    </header>
-
-    <main>
-
-      <!-- =======================================================
-           HOME
-           ======================================================= -->
-      <section id="page-home" class="page">
-
-        <!-- =====================================================
-             HOME HERO
-             MOBILE:
-               Profile stacks above the ad.
-             LAPTOP / DESKTOP:
-               Profile card on the left + Ad card on the right,
-               matching the latest reference screenshot.
-             ===================================================== -->
-        <div class="grid grid-cols-1 lg:grid-cols-[1.12fr_.88fr] gap-5 lg:gap-6 mt-5">
-
-          <!-- PROFILE CARD -->
-          <div
-            class="glass rounded-3xl p-6 sm:p-8 lg:p-10 shadow-card min-h-[310px] lg:min-h-[310px] flex flex-col justify-between">
-
-            <div>
+            <div class="mt-6 flex flex-col items-center text-center lg:flex-row lg:items-center lg:text-left lg:gap-5">
               <div
-                class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] text-muted">
-                <span class="h-2 w-2 rounded-full bg-cyanx"></span>
-                Private Channel
+                class="shrink-0 h-24 w-24 sm:h-28 sm:w-28 rounded-full overflow-hidden border-2 border-white shadow-soft ring-1 ring-slate-200 bg-slate-100">
+                <img src="IMG/PF.jpg" alt="Profile" class="w-full h-full object-cover"
+                  onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;w-full h-full flex items-center justify-center text-primary&quot;><i data-lucide=&quot;user-round&quot; class=&quot;h-10 w-10&quot;></i></span>'; lucide.createIcons();" />
               </div>
 
-              <!--
-                Profile:
-                Mobile = centered circular avatar
-                Laptop = circular avatar + title/description in one row
-              -->
-              <div
-                class="mt-6 flex flex-col items-center text-center lg:flex-row lg:items-center lg:text-left lg:gap-5">
-
-                <div
-                  class="shrink-0 h-24 w-24 sm:h-28 sm:w-28 rounded-full overflow-hidden border-2 border-white shadow-soft ring-1 ring-slate-200 bg-slate-100">
-                  <img
-                    src="https://images.unsplash.com/photo-1519750783826-e2420f4d687f?auto=format&fit=crop&w=260&q=80"
-                    alt="Profile" class="w-full h-full object-cover" />
-                </div>
-
-                <div class="mt-4 lg:mt-0">
-                  <h1 class="text-2xl sm:text-3xl lg:text-[36px] font-bold tracking-tight leading-tight">
-                    Midnight Flex - Sex One Night
-                  </h1>
-                  <p class="text-sm lg:text-[15px] text-muted mt-2 max-w-xl">
-                    Premium videos, images and curated content.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-wrap items-center justify-center gap-3 mt-5">
-              <a data-smartlink="true" href="#"
-                class="smartlink inline-flex items-center gap-2 rounded-xl bg-ink text-white px-4 py-2.5 text-xs sm:text-sm font-semibold hover:opacity-90 transition">
-                <i data-lucide="video" class="h-4 w-4"></i>
-                Browse Videos
-              </a>
-
-              <a data-smartlink="true" href="#"
-                class="smartlink inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold text-ink hover:bg-soft transition">
-                <i data-lucide="images" class="h-4 w-4"></i>
-                View Images
-              </a>
-            </div>
-          </div>
-
-          <!-- ===================================================
-               AD CARD
-               Mobile = stacked under profile
-               Laptop = right side of profile card
-               =================================================== -->
-          <div class="ad-slot glass rounded-3xl p-4 sm:p-5 shadow-card min-h-[310px] lg:min-h-[310px] flex flex-col">
-
-            <div class="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-muted">
-              <span>Advertisement</span>
-              <i data-lucide="megaphone" class="h-4 w-4"></i>
-            </div>
-
-            <div class="flex-1 flex items-center justify-center mt-3">
-
-              <!-- MOBILE BANNER SLOT
-                   Adsterra suggested:
-                   320x50 / 320x100 / 300x250
-                   PASTE MOBILE ADSTERRA CODE INSIDE.
-              -->
-              <div
-                class="sm:hidden w-full min-h-[100px] rounded-2xl border border-dashed border-slate-300 bg-white/75 flex items-center justify-center text-center px-4">
-                <div>
-                  <div class="text-sm font-semibold text-ink">Adsterra Mobile Banner</div>
-                  <div class="text-[11px] text-muted mt-1">320x50 / 320x100 / 300x250</div>
-                  <!-- PASTE MOBILE ADSTERRA BANNER CODE HERE -->
-                </div>
-              </div>
-
-              <!-- LAPTOP / DESKTOP BANNER SLOT
-                   Adsterra suggested:
-                   728x90 / 970x90 / 970x250
-                   PASTE LAPTOP/DESKTOP ADSTERRA CODE INSIDE.
-              -->
-              <div
-                class="hidden sm:flex w-full min-h-[180px] lg:min-h-[230px] rounded-2xl border border-dashed border-slate-300 bg-white/75 items-center justify-center text-center px-5">
-                <div>
-                  <div class="text-sm lg:text-base font-semibold text-ink">Adsterra Banner Space</div>
-                  <div class="text-xs text-muted mt-2">Large desktop ad placement</div>
-                  <div class="text-[11px] text-slate-400 mt-1">728x90 / 970x90 / 970x250</div>
-                  <!-- PASTE LAPTOP / DESKTOP ADSTERRA BANNER CODE HERE -->
-                </div>
-              </div>
-
-            </div>
-
-            <div class="text-[10px] text-slate-400 mt-3">
-              Ad slot ID: HOME_TOP_BANNER
-            </div>
-          </div>
-        </div>
-
-        <!-- =====================================================
-             CONTENT LIST
-             ===================================================== -->
-        <div class="mt-7">
-          <div class="flex items-end justify-between mb-4 px-1">
-            <div>
-              <div class="text-[10px] uppercase tracking-[0.2em] text-cyanx">Latest</div>
-              <h2 class="text-xl sm:text-2xl font-bold mt-1">Featured Content</h2>
-            </div>
-            <a href="#video" data-route="video" class="text-xs sm:text-sm text-muted hover:text-ink">View all</a>
-          </div>
-
-          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
-
-            <!-- CARD 1 -->
-            <article class="glass rounded-2xl overflow-hidden shadow-card">
-              <div class="relative aspect-video bg-slate-100">
-                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=80"
-                  alt="Morning mobility" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
-
-                <!-- PLAY BUTTON = SMARTLINK -->
-                <a data-smartlink="true" href="#"
-                  class="smartlink absolute inset-0 flex items-center justify-center group" aria-label="Play video">
-                  <span
-                    class="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-white text-ink flex items-center justify-center shadow-soft group-hover:scale-110 transition">
-                    <i data-lucide="play" class="h-5 w-5 sm:h-6 sm:w-6 ml-0.5"></i>
-                  </span>
-                </a>
-
-                <span
-                  class="absolute bottom-3 right-3 rounded-lg bg-black/70 text-white px-2 py-1 text-[11px]">20:00</span>
-              </div>
-
-              <div class="p-4 sm:p-5">
-                <h3 class="font-semibold leading-snug text-sm sm:text-base">Morning Mobility Flow: 20-Minute Athlete
-                  Routine</h3>
-                <p class="text-xs sm:text-sm text-muted mt-2">Start every training day with a focused mobility routine.
+              <div class="mt-4 lg:mt-0">
+                <h1 class="text-2xl sm:text-3xl lg:text-[42px] font-bold tracking-tight leading-tight">
+                  Midnight Flex
+                </h1>
+                <p class="text-sm lg:text-[15px] text-muted mt-2 max-w-xl">
+                  Discover featured videos and curated content in one clean, responsive home page.
                 </p>
-
-                <div class="flex items-center justify-between gap-2 mt-4">
-                  <div class="flex items-center gap-3 text-[11px] text-muted">
-                    <span class="inline-flex items-center gap-1"><i data-lucide="eye"
-                        class="h-3.5 w-3.5"></i>25.3K</span>
-                    <span class="inline-flex items-center gap-1"><i data-lucide="clock-3"
-                        class="h-3.5 w-3.5"></i>20:00</span>
-                  </div>
-
-                  <!-- WATCH NOW = SMARTLINK -->
-                  <a data-smartlink="true" href="#"
-                    class="smartlink inline-flex items-center gap-1.5 rounded-xl bg-primary text-white px-3 py-2 text-[11px] font-semibold hover:bg-primary2 transition">
-                    <i data-lucide="play" class="h-3.5 w-3.5"></i>
-                    Watch Now
-                  </a>
-                </div>
               </div>
-            </article>
+            </div>
+          </div>
 
-            <!-- CARD 2 -->
-            <article class="glass rounded-2xl overflow-hidden shadow-card">
-              <div class="relative aspect-video bg-slate-100">
-                <img src="https://images.unsplash.com/photo-1526401485004-2fda9f6b0c8f?auto=format&fit=crop&w=1000&q=80"
-                  alt="Strength session" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mt-6">
+            <a href="#videos"
+              class="inline-flex items-center gap-2 rounded-xl bg-primary text-white px-4 py-2.5 text-xs sm:text-sm font-semibold hover:opacity-90 transition">
+              <i data-lucide="play-circle" class="h-4 w-4"></i>
+              Browse Videos
+            </a>
 
-                <!-- PLAY BUTTON = SMARTLINK -->
-                <a data-smartlink="true" href="#"
-                  class="smartlink absolute inset-0 flex items-center justify-center group" aria-label="Play video">
-                  <span
-                    class="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-white text-ink flex items-center justify-center shadow-soft group-hover:scale-110 transition">
-                    <i data-lucide="play" class="h-5 w-5 sm:h-6 sm:w-6 ml-0.5"></i>
-                  </span>
-                </a>
-
-                <span
-                  class="absolute bottom-3 right-3 rounded-lg bg-black/70 text-white px-2 py-1 text-[11px]">14:32</span>
-              </div>
-
-              <div class="p-4 sm:p-5">
-                <h3 class="font-semibold leading-snug text-sm sm:text-base">Athlete Strength Session — Full Body</h3>
-                <p class="text-xs sm:text-sm text-muted mt-2">A compact session for strength and movement quality.</p>
-
-                <div class="flex items-center justify-between gap-2 mt-4">
-                  <div class="flex items-center gap-3 text-[11px] text-muted">
-                    <span class="inline-flex items-center gap-1"><i data-lucide="eye"
-                        class="h-3.5 w-3.5"></i>18.8K</span>
-                    <span class="inline-flex items-center gap-1"><i data-lucide="clock-3"
-                        class="h-3.5 w-3.5"></i>14:32</span>
-                  </div>
-
-                  <!-- WATCH NOW = SMARTLINK -->
-                  <a data-smartlink="true" href="#"
-                    class="smartlink inline-flex items-center gap-1.5 rounded-xl bg-primary text-white px-3 py-2 text-[11px] font-semibold hover:bg-primary2 transition">
-                    <i data-lucide="play" class="h-3.5 w-3.5"></i>
-                    Watch Now
-                  </a>
-                </div>
-              </div>
-            </article>
-
-            <!-- CARD 3 -->
-            <article class="glass rounded-2xl overflow-hidden shadow-card">
-              <div class="relative aspect-video bg-slate-100">
-                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1000&q=80"
-                  alt="Flexibility session" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
-
-                <!-- PLAY BUTTON = SMARTLINK -->
-                <a data-smartlink="true" href="#"
-                  class="smartlink absolute inset-0 flex items-center justify-center group" aria-label="Play video">
-                  <span
-                    class="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-white text-ink flex items-center justify-center shadow-soft group-hover:scale-110 transition">
-                    <i data-lucide="play" class="h-5 w-5 sm:h-6 sm:w-6 ml-0.5"></i>
-                  </span>
-                </a>
-
-                <span
-                  class="absolute bottom-3 right-3 rounded-lg bg-black/70 text-white px-2 py-1 text-[11px]">09:41</span>
-              </div>
-
-              <div class="p-4 sm:p-5">
-                <h3 class="font-semibold leading-snug text-sm sm:text-base">Flexibility Session — Evening Flow</h3>
-                <p class="text-xs sm:text-sm text-muted mt-2">Controlled flexibility work for a smoother recovery
-                  routine.</p>
-
-                <div class="flex items-center justify-between gap-2 mt-4">
-                  <div class="flex items-center gap-3 text-[11px] text-muted">
-                    <span class="inline-flex items-center gap-1"><i data-lucide="eye"
-                        class="h-3.5 w-3.5"></i>12.1K</span>
-                    <span class="inline-flex items-center gap-1"><i data-lucide="clock-3"
-                        class="h-3.5 w-3.5"></i>09:41</span>
-                  </div>
-
-                  <!-- WATCH NOW = SMARTLINK -->
-                  <a data-smartlink="true" href="#"
-                    class="smartlink inline-flex items-center gap-1.5 rounded-xl bg-primary text-white px-3 py-2 text-[11px] font-semibold hover:bg-primary2 transition">
-                    <i data-lucide="play" class="h-3.5 w-3.5"></i>
-                    Watch Now
-                  </a>
-                </div>
-              </div>
-            </article>
+            <a data-smartlink="true" href="#"
+              class="smartlink inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold text-ink hover:bg-soft transition">
+              <i data-lucide="external-link" class="h-4 w-4"></i>
+              Featured Link
+            </a>
           </div>
         </div>
 
-        <!-- =====================================================
-             ADSTERAA BANNER: HOME MID
-             Mobile + Laptop slots separately documented.
-             ===================================================== -->
-        <div class="ad-slot glass rounded-3xl p-3 sm:p-4 shadow-soft mt-7">
+        <!-- ADSTERRA: HOME TOP -->
+        <aside class="ad-slot glass rounded-3xl p-4 sm:p-5 shadow-card min-h-[310px] flex flex-col">
+          <div class="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-muted">
+            <span>Advertisement</span>
+            <i data-lucide="megaphone" class="h-4 w-4"></i>
+          </div>
+
+          <div class="flex-1 flex items-center justify-center mt-3">
+            <!-- PASTE ADSTERRA HOME_TOP CODE BELOW -->
+            <div
+              class="w-full min-h-[220px] rounded-2xl border border-dashed border-slate-300 bg-white/75 flex items-center justify-center text-center px-5">
+              <div>
+                <div class="text-sm font-semibold text-ink">Adsterra Banner Slot</div>
+                <div class="text-xs text-muted mt-2">HOME_TOP_BANNER</div>
+                <div class="text-[11px] text-slate-400 mt-1">Mobile: 300×250 · Desktop: 728×90 / 970×250</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-[10px] text-slate-400 mt-3">Slot ID: HOME_TOP_BANNER</div>
+        </aside>
+      </section>
+
+      <!-- VIDEO SECTION -->
+      <section id="videos" class="mt-10 sm:mt-12">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+          <div>
+            <div class="text-[10px] uppercase tracking-[0.2em] text-primary">Featured</div>
+            <h2 class="text-2xl sm:text-3xl font-bold mt-1">Latest Videos</h2>
+            <p class="text-sm text-muted mt-1">Every video card below is rendered entirely from JavaScript.</p>
+          </div>
+
+          <a data-smartlink="true" href="#"
+            class="smartlink inline-flex items-center justify-center gap-2 rounded-xl bg-ink text-white px-4 py-2.5 text-xs font-semibold">
+            <i data-lucide="sparkles" class="h-4 w-4"></i>
+            More Content
+          </a>
+        </div>
+
+        <!-- ADSTERRA: VIDEO TOP -->
+        <div class="ad-slot glass rounded-3xl p-3 sm:p-4 shadow-soft mt-6">
+          <div class="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-muted mb-3">
+            <span>Advertisement</span>
+            <span>VIDEO_TOP_BANNER</span>
+          </div>
+
+          <!-- PASTE ADSTERRA VIDEO_TOP CODE BELOW -->
+          <div
+            class="min-h-[110px] sm:min-h-[150px] rounded-2xl border border-dashed border-slate-300 bg-white flex items-center justify-center text-center px-4">
+            <div>
+              <div class="font-semibold text-sm">Adsterra Video Top Slot</div>
+              <div class="text-[11px] text-muted mt-1">Mobile / Desktop responsive banner placement</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 100% JS RENDERED -->
+        <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 mt-6"></div>
+
+        <!-- ADSTERRA: HOME MID -->
+        <div class="ad-slot glass rounded-3xl p-3 sm:p-4 shadow-soft mt-8">
           <div class="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-muted mb-3">
             <span>Advertisement</span>
             <span>HOME_MID_BANNER</span>
           </div>
 
-          <!-- Mobile -->
+          <!-- PASTE ADSTERRA HOME_MID CODE BELOW -->
           <div
-            class="sm:hidden min-h-[250px] rounded-2xl border border-dashed border-slate-300 bg-white flex items-center justify-center text-center px-4">
+            class="min-h-[250px] rounded-2xl border border-dashed border-slate-300 bg-white flex items-center justify-center text-center px-4">
             <div>
-              <div class="font-semibold text-sm text-ink">Adsterra Mobile Banner</div>
-              <div class="text-[11px] text-muted mt-1">Recommended 300x250</div>
-              <!-- PASTE MOBILE ADSTERRA CODE HERE -->
-            </div>
-          </div>
-
-          <!-- Laptop/Desktop -->
-          <div
-            class="hidden sm:flex min-h-[180px] lg:min-h-[250px] rounded-2xl border border-dashed border-slate-300 bg-white items-center justify-center text-center px-4">
-            <div>
-              <div class="font-semibold text-ink">Adsterra Laptop/Desktop Banner</div>
-              <div class="text-xs text-muted mt-1">Recommended 970x250</div>
-              <!-- PASTE LAPTOP/DESKTOP ADSTERRA CODE HERE -->
+              <div class="font-semibold text-sm">Adsterra Mid Banner Slot</div>
+              <div class="text-[11px] text-muted mt-1">Recommended: 300×250 / 728×90 / 970×250</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- =======================================================
-           VIDEO PAGE
-           ======================================================= -->
-      <section id="page-video" class="page hidden">
-        <div class="mt-5">
-          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-            <div>
-              <div class="text-[10px] uppercase tracking-[0.2em] text-cyanx">Video</div>
-              <h2 class="text-2xl sm:text-3xl font-bold mt-1">Video Library</h2>
-              <p class="text-sm text-muted mt-1">Browse featured sessions and training content.</p>
-            </div>
-
-            <!-- SMARTLINK -->
-            <a data-smartlink="true" href="#"
-              class="smartlink inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-white px-4 py-2.5 text-xs font-semibold">
-              <i data-lucide="external-link" class="h-4 w-4"></i>
-              Featured Link
-            </a>
+      <!-- CTA -->
+      <section class="glass rounded-3xl shadow-card p-6 sm:p-8 lg:p-10 mt-10 sm:mt-12 text-center">
+        <div class="mx-auto max-w-2xl">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-soft text-primary">
+            <i data-lucide="clapperboard" class="h-6 w-6"></i>
           </div>
-
-          <!-- VIDEO TOP AD
-               Mobile: 320x50 / 320x100 / 300x250
-               Laptop: 728x90 / 970x90 / 970x250
-               PASTE ADSTERRA CODE BELOW.
-          -->
-          <div class="ad-slot glass rounded-3xl p-3 sm:p-4 shadow-soft mt-5">
-            <div class="text-[10px] uppercase tracking-[0.16em] text-muted mb-3">VIDEO_TOP_BANNER</div>
-
-            <div
-              class="sm:hidden min-h-[100px] rounded-2xl border border-dashed border-slate-300 bg-white flex items-center justify-center text-center px-4">
-              <div>
-                <div class="font-semibold text-sm">Adsterra Mobile Banner</div>
-                <div class="text-[11px] text-muted mt-1">320x50 / 320x100</div>
-                <!-- PASTE MOBILE ADSTERRA BANNER CODE HERE -->
-              </div>
-            </div>
-
-            <div
-              class="hidden sm:flex min-h-[180px] lg:min-h-[250px] rounded-2xl border border-dashed border-slate-300 bg-white items-center justify-center text-center px-4">
-              <div>
-                <div class="font-semibold">Adsterra Laptop/Desktop Banner</div>
-                <div class="text-xs text-muted mt-1">728x90 / 970x90 / 970x250</div>
-                <!-- PASTE LAPTOP/DESKTOP ADSTERRA BANNER CODE HERE -->
-              </div>
-            </div>
-          </div>
-
-          <div id="video-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 mt-6"></div>
+          <h2 class="text-2xl sm:text-3xl font-bold mt-4">More content, one simple page.</h2>
+          <p class="text-sm text-muted mt-3">Clean structure, dynamic video cards, Lucide icons and ready-to-paste
+            advertising slots.</p>
+          <a data-smartlink="true" href="#"
+            class="smartlink inline-flex items-center gap-2 rounded-xl bg-primary text-white px-5 py-3 text-sm font-semibold mt-6">
+            <i data-lucide="external-link" class="h-4 w-4"></i>
+            Open Featured Link
+          </a>
         </div>
       </section>
-
-      <!-- =======================================================
-           IMAGE PAGE
-           ======================================================= -->
-      <section id="page-image" class="page hidden">
-        <div class="mt-5">
-          <div>
-            <div class="text-[10px] uppercase tracking-[0.2em] text-cyanx">Image</div>
-            <h2 class="text-2xl sm:text-3xl font-bold mt-1">Image Gallery</h2>
-            <p class="text-sm text-muted mt-1">Fast visual browsing with Smartlink-enabled image cards.</p>
-          </div>
-
-          <!-- IMAGE TOP AD
-               Mobile: 300x250
-               Laptop: 970x250
-               PASTE ADSTERRA BANNER CODE IN THE MATCHING SLOT.
-          -->
-          <div class="ad-slot glass rounded-3xl p-3 sm:p-4 shadow-soft mt-5">
-            <div class="text-[10px] uppercase tracking-[0.16em] text-muted mb-3">IMAGE_TOP_BANNER</div>
-
-            <div
-              class="sm:hidden min-h-[250px] rounded-2xl border border-dashed border-slate-300 bg-white flex items-center justify-center text-center px-4">
-              <div>
-                <div class="font-semibold text-sm">Adsterra Mobile Banner</div>
-                <div class="text-[11px] text-muted mt-1">Recommended 300x250</div>
-                <!-- PASTE MOBILE ADSTERRA BANNER CODE HERE -->
-              </div>
-            </div>
-
-            <div
-              class="hidden sm:flex min-h-[180px] lg:min-h-[250px] rounded-2xl border border-dashed border-slate-300 bg-white items-center justify-center text-center px-4">
-              <div>
-                <div class="font-semibold">Adsterra Laptop/Desktop Banner</div>
-                <div class="text-xs text-muted mt-1">Recommended 970x250</div>
-                <!-- PASTE LAPTOP/DESKTOP ADSTERRA BANNER CODE HERE -->
-              </div>
-            </div>
-          </div>
-
-          <div id="image-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mt-6"></div>
-        </div>
-      </section>
-
-      <!-- =======================================================
-           ABOUT
-           ======================================================= -->
-      <section id="page-about" class="page hidden">
-        <div class="mt-5 grid lg:grid-cols-[.8fr_1.2fr] gap-5">
-          <div class="glass rounded-3xl p-7 shadow-card text-center">
-            <div
-              class="mx-auto h-24 w-24 rounded-full overflow-hidden border-2 border-white shadow-soft ring-1 ring-slate-200">
-              <img src="https://images.unsplash.com/photo-1519750783826-e2420f4d687f?auto=format&fit=crop&w=260&q=80"
-                alt="Profile" class="w-full h-full object-cover" />
-            </div>
-            <h2 class="text-2xl font-bold mt-4">Umii Araa</h2>
-            <p class="text-sm text-muted mt-1">Midnight Channel</p>
-          </div>
-
-          <div class="glass rounded-3xl p-7 shadow-card">
-            <div class="text-[10px] uppercase tracking-[0.2em] text-cyanx">About Me</div>
-            <h2 class="text-2xl sm:text-3xl font-bold mt-2">A clean light-mode content experience.</h2>
-            <p class="text-sm text-muted leading-6 mt-4">
-              The interface is optimized for a compact mobile layout while expanding naturally on laptop and desktop.
-              Smartlink actions are centralized, and banner areas are separated for mobile and desktop Adsterra code.
-            </p>
-
-            <div class="grid sm:grid-cols-3 gap-3 mt-6">
-              <div class="rounded-2xl border border-slate-200 bg-white p-4">
-                <i data-lucide="smartphone" class="h-5 w-5 text-primary"></i>
-                <div class="font-semibold text-sm mt-3">Mobile First</div>
-                <div class="text-xs text-muted mt-1">Compact spacing</div>
-              </div>
-              <div class="rounded-2xl border border-slate-200 bg-white p-4">
-                <i data-lucide="mouse-pointer-click" class="h-5 w-5 text-primary"></i>
-                <div class="font-semibold text-sm mt-3">Smartlink</div>
-                <div class="text-xs text-muted mt-1">Central config</div>
-              </div>
-              <div class="rounded-2xl border border-slate-200 bg-white p-4">
-                <i data-lucide="megaphone" class="h-5 w-5 text-primary"></i>
-                <div class="font-semibold text-sm mt-3">Ad Ready</div>
-                <div class="text-xs text-muted mt-1">Responsive slots</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
     </main>
 
-    <!-- =========================================================
-         FOOTER
-         ========================================================= -->
     <footer class="border-t border-slate-200 mt-10 py-7">
-      <div class="grid md:grid-cols-3 gap-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         <div>
           <div class="font-semibold">Umii Araa</div>
-          <p class="text-xs text-muted mt-2 max-w-sm">Premium content channel with responsive Light Mode UI, Smartlink
-            and Adsterra banner placements.</p>
+          <p class="text-xs text-muted mt-1">Single Home Page · JavaScript Video Cards · Lucide · Adsterra Slots</p>
         </div>
 
-        <div>
-          <div class="text-[10px] uppercase tracking-[0.18em] text-slate-400">Navigate</div>
-          <div class="grid grid-cols-2 gap-2 mt-3 text-xs text-muted">
-            <a href="#home" data-route="home" class="hover:text-ink">Home</a>
-            <a href="#video" data-route="video" class="hover:text-ink">Video</a>
-            <a href="#image" data-route="image" class="hover:text-ink">Image</a>
-            <a href="#about" data-route="about" class="hover:text-ink">About Me</a>
-          </div>
-        </div>
-
-        <div>
-          <div class="text-[10px] uppercase tracking-[0.18em] text-slate-400">Legal</div>
-          <div class="grid grid-cols-2 gap-2 mt-3 text-xs text-muted">
-            <a href="#" class="hover:text-ink">Privacy</a>
-            <a href="#" class="hover:text-ink">Terms</a>
-          </div>
-        </div>
+        <a href="#home" class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-ink">
+          Back to top
+          <i data-lucide="arrow-up" class="h-3.5 w-3.5"></i>
+        </a>
       </div>
 
       <div
-        class="border-t border-slate-200 mt-7 pt-4 text-[10px] text-slate-400 flex flex-col sm:flex-row gap-2 sm:justify-between">
+        class="border-t border-slate-200 mt-6 pt-4 text-[10px] text-slate-400 flex flex-col sm:flex-row gap-2 sm:justify-between">
         <span>© 2026 Umii Araa. All rights reserved.</span>
-        <span>HTML + Tailwind CSS + JavaScript + Lucide</span>
       </div>
     </footer>
   </div>
 
-  <!-- ===========================================================
-       ADSTERRA + SMARTLINK CONFIG
-       ===========================================================
-       SMARTLINK:
-       - Paste your Adsterra Smartlink once below.
-       - It automatically applies to:
-         Home CTA, Video CTA, Image cards, Play buttons, Watch Now,
-         Featured Link and any element marked data-smartlink="true".
-
-       BANNER ADS:
-       - Mobile and Laptop/Desktop have SEPARATE slots.
-       - Paste the exact Adsterra banner script in each matching
-         HTML placeholder comment above.
-       - Suggested mobile:
-           320x50
-           320x100
-           300x250
-       - Suggested laptop/desktop:
-           728x90
-           970x90
-           970x250
-
-       IMPORTANT:
-       - Keep the Adsterra-provided script exactly as provided.
-       - Replace only the placeholder content, not Adsterra's code.
-       =========================================================== -->
-
   <script>
-    // ===========================================================
-    // SMARTLINK URL
-    // Replace this with your REAL Adsterra Smartlink.
-    // ===========================================================
+    // ============================================================
+    // CONFIG
+    // ============================================================
+
+    // Replace with your real Adsterra Smartlink.
     const SMARTLINK_URL = 'https://YOUR-ADSTERRA-SMARTLINK-HERE.example/';
 
-    // ===========================================================
-    // SIMPLE ROUTER
-    // ===========================================================
-    const pages = ['home', 'video', 'image', 'about'];
+    // All video cards are rendered from this JS data.
+    const VIDEOS = [
+      {
+        title: 'Watch Her Push the Limits in This Intense Full-Body Training Session 🥵💦',
+        duration: '11:20',
+        views: '12.8K',
+        image: 'IMG/1.jpg',
+        tag: 'Must Watch'
+      },
+      {
+        title: 'You Won’t Believe How Far She Can Go in This Extreme Flexibility Session 🥵',
+        duration: '18:45',
+        views: '9.6K',
+        image: 'IMG/2.jpg',
+        tag: 'Trending'
+      },
+      {
+        title: 'Inside Her Final Competition Preparation Before the Big Performance 💦',
+        duration: '22:10',
+        views: '18.4K',
+        image: 'IMG/3.jpg',
+        tag: 'New'
+      },
+      {
+        title: 'Start the Day With This Smooth Morning Mobility and Flexibility Routine 💦',
+        duration: '20:00',
+        views: '7.2K',
+        image: 'IMG/4.jpg',
+        tag: 'Daily'
+      },
+      {
+        title: 'Watch This Powerful Core Training Session Push Her Strength to the Limit 🥵💦',
+        duration: '13:30',
+        views: '15.1K',
+        image: 'IMG/5.jpg',
+        tag: 'Featured'
+      },
+      {
+        title: 'Slow Down and Follow This Relaxing Evening Recovery Session to the End 💦',
+        duration: '10:05',
+        views: '8.9K',
+        image: 'IMG/6.jpg',
+        tag: 'Relax'
+      },
+      {
+        title: 'Strength Meets Flexibility in This Challenging Full-Body Athlete Workout 🥵',
+        duration: '17:15',
+        views: '11.3K',
+        image: 'IMG/7.jpg',
+        tag: 'Popular'
+      },
+      {
+        title: 'These Dynamic Stretching Drills Will Completely Change the Way You Move 💦',
+        duration: '14:50',
+        views: '6.7K',
+        image: 'IMG/8.jpg',
+        tag: 'New'
+      },
+      {
+        title: 'Follow Her Through This Powerful Yoga Flow Built for Strength and Control 🥵',
+        duration: '19:40',
+        views: '13.5K',
+        image: 'IMG/9.jpg',
+        tag: 'Featured'
+      },
+      {
+        title: 'Can She Complete the Full Flexibility Challenge Without Giving Up? 🥵💦',
+        duration: '21:30',
+        views: '10.2K',
+        image: 'IMG/10.jpg',
+        tag: 'Challenge'
+      },
+      {
+        title: 'Watch This Intense Core Workout as She Builds Serious Athletic Strength 🥵💦',
+        duration: '16:25',
+        views: '9.8K',
+        image: 'IMG/11.jpg',
+        tag: 'Popular'
+      },
+      {
+        title: 'End Your Day With This Slow and Relaxing Full-Body Stretch Routine 💦',
+        duration: '12:15',
+        views: '7.5K',
+        image: 'IMG/12.jpg',
+        tag: 'Relax'
+      },
+      {
+        title: 'The Warm-Up Gets Intense in This Complete Athlete Preparation Session 🥵💦',
+        duration: '15:00',
+        views: '14.1K',
+        image: 'IMG/13.jpg',
+        tag: 'Featured'
+      },
+      {
+        title: 'Watch Her Test Her Balance and Flexibility With These Advanced Movements 🥵',
+        duration: '18:20',
+        views: '8.3K',
+        image: 'IMG/14.jpg',
+        tag: 'New'
+      },
+      {
+        title: 'A Smooth Morning Stretch Flow Designed to Wake Up Your Entire Body 💦',
+        duration: '13:50',
+        views: '11.7K',
+        image: 'IMG/15.jpg',
+        tag: 'Daily'
+      },
+      {
+        title: 'This Powerful Flexibility Session Takes Her Range of Motion to the Next Level 🥵💦',
+        duration: '20:10',
+        views: '12.9K',
+        image: 'IMG/16.jpg',
+        tag: 'Featured'
+      },
+      {
+        title: 'Watch These Dynamic Mobility Drills That Every Serious Athlete Should Try 🥵',
+        duration: '17:45',
+        views: '9.4K',
+        image: 'IMG/17.jpg',
+        tag: 'Popular'
+      },
+      {
+        title: 'Unwind With This Beautiful Evening Flow Focused on Movement and Relaxation 💦',
+        duration: '14:30',
+        views: '7.8K',
+        image: 'IMG/18.jpg',
+        tag: 'Relax'
+      },
+      {
+        title: 'She Takes on One of Her Most Difficult Stretching Challenges Yet 🥵💦',
+        duration: '19:55',
+        views: '10.6K',
+        image: 'IMG/19.jpg',
+        tag: 'Challenge'
+      },
+      {
+        title: 'The Ultimate Strength and Flexibility Session for Athletes Who Want More 🥵💦',
+        duration: '22:05',
+        views: '13.2K',
+        image: 'IMG/20.jpg',
+        tag: 'Must Watch'
+      }
+    ];
+    // ============================================================
+    // HELPERS
+    // ============================================================
 
-    function setupSmartlinks() {
-      document.querySelectorAll('[data-smartlink="true"]').forEach((el) => {
-        el.href = SMARTLINK_URL;
-        el.target = '_blank';
-        el.rel = 'nofollow sponsored noopener';
-      });
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      })[char]);
     }
 
-    function makeVideoCard(title, duration, image) {
-      return `
-        <article class="glass rounded-2xl overflow-hidden shadow-card">
-          <div class="relative aspect-video bg-slate-100">
-            <img src="${image}" alt="${title}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
+    function videoCard(video) {
+      const title = escapeHTML(video.title);
+      const duration = escapeHTML(video.duration);
+      const views = escapeHTML(video.views);
+      const image = escapeHTML(video.image);
+      const tag = escapeHTML(video.tag);
 
-            <!-- PLAY = SMARTLINK -->
-            <a data-smartlink="true" href="#" class="smartlink absolute inset-0 flex items-center justify-center group" aria-label="Play ${title}">
+      return `
+        <article class="video-card glass rounded-2xl overflow-hidden shadow-card">
+          <div class="relative aspect-video bg-slate-100 overflow-hidden">
+            <img
+              src="${image}"
+              alt="${title}"
+              class="video-thumb w-full h-full object-cover transition duration-500"
+              loading="lazy"
+            >
+
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent"></div>
+
+            <span class="absolute top-3 left-3 rounded-lg bg-white/90 text-ink px-2 py-1 text-[10px] font-semibold">
+              ${tag}
+            </span>
+
+            <a
+              data-smartlink="true"
+              href="#"
+              class="smartlink absolute inset-0 flex items-center justify-center group"
+              aria-label="Play ${title}"
+            >
               <span class="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-white text-ink flex items-center justify-center shadow-soft group-hover:scale-110 transition">
-                <i data-lucide="play" class="h-5 w-5 sm:h-6 sm:w-6 ml-0.5"></i>
+                <i data-lucide="play" class="h-5 w-5 sm:h-6 sm:w-6 ml-0.5 fill-current"></i>
               </span>
             </a>
 
-            <span class="absolute bottom-3 right-3 rounded-lg bg-black/70 text-white px-2 py-1 text-[11px]">${duration}</span>
+            <span class="absolute bottom-3 right-3 rounded-lg bg-black/75 text-white px-2 py-1 text-[11px]">
+              ${duration}
+            </span>
           </div>
 
           <div class="p-4 sm:p-5">
@@ -680,12 +457,16 @@
 
             <div class="flex items-center justify-between gap-2 mt-4">
               <span class="text-[11px] text-muted inline-flex items-center gap-1">
-                <i data-lucide="eye" class="h-3.5 w-3.5"></i>12.8K views
+                <i data-lucide="eye" class="h-3.5 w-3.5"></i>
+                ${views} views
               </span>
 
-              <!-- WATCH NOW = SMARTLINK -->
-              <a data-smartlink="true" href="#" class="smartlink inline-flex items-center gap-1.5 rounded-xl bg-primary text-white px-3 py-2 text-[11px] font-semibold">
-                <i data-lucide="play" class="h-3.5 w-3.5"></i>
+              <a
+                data-smartlink="true"
+                href="#"
+                class="smartlink inline-flex items-center gap-1.5 rounded-xl bg-primary text-white px-3 py-2 text-[11px] font-semibold hover:opacity-90 transition"
+              >
+                <i data-lucide="play" class="h-3.5 w-3.5 fill-current"></i>
                 Watch Now
               </a>
             </div>
@@ -694,78 +475,41 @@
       `;
     }
 
-    function makeImageCard(image, label) {
-      return `
-        <!-- IMAGE CARD = SMARTLINK -->
-        <a data-smartlink="true" href="#" class="smartlink group relative aspect-square rounded-2xl overflow-hidden glass block">
-          <img src="${image}" alt="${label}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-          <div class="absolute left-3 right-3 bottom-3 flex items-center justify-between">
-            <span class="text-xs sm:text-sm font-semibold text-white">${label}</span>
-            <span class="h-8 w-8 rounded-full bg-white/90 text-ink flex items-center justify-center">
-              <i data-lucide="arrow-up-right" class="h-4 w-4"></i>
-            </span>
-          </div>
-        </a>
-      `;
+    // ============================================================
+    // RENDER
+    // ============================================================
+
+    function renderVideos() {
+      const grid = document.getElementById('video-grid');
+
+      if (!grid) return;
+
+      grid.innerHTML = VIDEOS.map(videoCard).join('');
     }
 
-    function initContent() {
-      const videos = [
-        ['Training Power Flow', '11:20', 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1000&q=80'],
-        ['Extreme Flexibility Session', '18:45', 'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=1000&q=80'],
-        ['Competition Preparation', '22:10', 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=1000&q=80'],
-        ['Morning Mobility', '20:00', 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1000&q=80'],
-        ['Athlete Core Session', '13:30', 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=80'],
-        ['Evening Recovery', '10:05', 'https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?auto=format&fit=crop&w=1000&q=80']
-      ];
-
-      document.getElementById('video-grid').innerHTML = videos
-        .map(v => makeVideoCard(v[0], v[1], v[2]))
-        .join('');
-
-      const images = [
-        ['https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80', 'Training'],
-        ['https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=800&q=80', 'Performance'],
-        ['https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80', 'Flexibility'],
-        ['https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80', 'Mobility'],
-        ['https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80', 'Strength'],
-        ['https://images.unsplash.com/photo-1526401485004-2fda9f6b0c8f?auto=format&fit=crop&w=800&q=80', 'Session'],
-        ['https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=800&q=80', 'Athlete'],
-        ['https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?auto=format&fit=crop&w=800&q=80', 'Recovery']
-      ];
-
-      document.getElementById('image-grid').innerHTML = images
-        .map(x => makeImageCard(x[0], x[1]))
-        .join('');
+    function setupSmartlinks() {
+      document.querySelectorAll('[data-smartlink="true"]').forEach((element) => {
+        element.href = SMARTLINK_URL;
+        element.target = '_blank';
+        element.rel = 'nofollow sponsored noopener';
+      });
     }
 
-    function renderRoute() {
-      const route = (location.hash.replace('#', '') || 'home').toLowerCase();
-      const active = pages.includes(route) ? route : 'home';
+    function refreshIcons() {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
 
-      pages.forEach((name) => {
-        const el = document.getElementById(`page-${name}`);
-        if (el) el.classList.toggle('hidden', name !== active);
-      });
+    // ============================================================
+    // INIT
+    // ============================================================
 
-      document.querySelectorAll('.nav-item').forEach((item) => {
-        const isActive = item.dataset.route === active;
-        item.classList.toggle('nav-active', isActive);
-        item.classList.toggle('text-muted', !isActive);
-      });
-
+    document.addEventListener('DOMContentLoaded', () => {
+      renderVideos();
       setupSmartlinks();
-      lucide.createIcons();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    window.addEventListener('hashchange', renderRoute);
-
-    initContent();
-    setupSmartlinks();
-    lucide.createIcons();
-    renderRoute();
+      refreshIcons();
+    });
   </script>
 </body>
 
